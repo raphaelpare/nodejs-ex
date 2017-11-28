@@ -15,11 +15,11 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
 if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
   var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-      mongoUser = process.env[mongoServiceName + '_USER'];
+      mongoHost = "ds123796.mlab.com"/*process.env[mongoServiceName + '_SERVICE_HOST']*/,
+      mongoPort = 23796/*process.env[mongoServiceName + '_SERVICE_PORT']*/,
+      mongoDatabase = "heroku_gzc2tsr8"/*process.env[mongoServiceName + '_DATABASE']*/,
+      mongoPassword = "dodo"/*process.env[mongoServiceName + '_PASSWORD']*/
+      mongoUser = "dodo"/*process.env[mongoServiceName + '_USER']*/;
 
   if (mongoHost && mongoPort && mongoDatabase) {
     mongoURLLabel = mongoURL = 'mongodb://';
