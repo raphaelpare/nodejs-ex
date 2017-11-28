@@ -2,6 +2,9 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+var mongoose = require('mongoose');
+var UserSchema = require("./dal/models/User.js")
+var User = mongoose.model('User', UserSchema);
     
 Object.assign=require('object-assign')
 
@@ -56,24 +59,6 @@ var initDb = function(callback) {
   });
 };
 
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
-});
-
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
@@ -93,6 +78,32 @@ app.get('/pagecount', function (req, res) {
 app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
+});
+
+
+app.get('/', function(req, res, next) {
+  mongoose.connect('mongodb://dodo:dodo@ds123796.mlab.com:23796/heroku_gzc2tsr8');
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+
+    var newUser = new User({
+      firstname   : 'Dodo',
+      lastname  : 'Le Dodo',
+      money   : 21654,
+      plugins   : {}
+    });
+     
+    newUser.save(function (err, response) {
+      if (err){
+        res.json(err);
+      }
+      else{
+        res.json(response);
+      }
+      mongoose.connection.close()
+    });
+  });
 });
 
 initDb(function(err){
