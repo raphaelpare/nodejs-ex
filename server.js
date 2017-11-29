@@ -123,49 +123,46 @@ app.post('/login', function(req, res, next) {
       money       : 21654,
       plugins     : [
         {
-          id              : 1,
-          title           : "Treshold",
-          subtitle        : "Seuil",
-          description     : "Permets de mettre un plafond sur votre carte à une période déterminée",
-          voteTotal       : 42,
-          ratings         : 1.9, 
-          isActivated     : true,
-          isInstalled     : true,
-          hook            : "onPayment",
-          options: {
-            limit: 50,
-            truc:  10
-          }
+          "id"              : 1,
+          "title"           : "Treshold",
+          "subtitle"        : "Seuil",
+          "description"     : "Permets de mettre un plafond sur votre carte à une période déterminée",
+          "voteTotal"       : 42,
+          "ratings"         : 1.9, 
+          "isActivated"     : true,
+          "isInstalled"     : true,
+          "hook"            : "onPayment",
+          "options": 
+            [{
+              "name"  : "Option 1",
+              "value" : 55,
+              "type"  : "number"
+            },{
+              "name"  : "Option 2",
+              "value" : 55,
+              "type"  : "number"
+            }]
         },
         {
-          id              : 2,
-          title           : "Watcher",
-          subtitle        : "Alerte SMS",
-          description     : "Permet de vous envoyer un SMS si vous depassez un certain montant",
-          voteTotal       : 650,
-          ratings         : 4.2, 
-          isActivated     : false,
-          isInstalled     : false,
-          hook            : "onPayment",
-          options: {
-            limit: 50,
-            truc:  10
-          }
-        },
-        {
-          id              : 3,
-          title           : "Plugin 3",
-          subtitle        : "...",
-          description     : "Super plugin",
-          voteTotal       : 12,
-          ratings         : 5.0, 
-          isActivated     : false,
-          isInstalled     : true,
-          hook            : "onPayment",
-          options: {
-            limit: 50,
-            truc:  10
-          }
+          "id"              : 2,
+          "title"           : "Watcher",
+          "subtitle"        : "Alerte SMS",
+          "description"     : "Permet de vous envoyer un SMS si vous depassez un certain montant",
+          "voteTotal"       : 650,
+          "ratings"         : 4.2, 
+          "isActivated"     : false,
+          "isInstalled"     : false,
+          "hook"            : "onPayment",
+          "options": 
+            [{
+              "name"  : "Option 1",
+              "value" : 55,
+              "type"  : "number"
+            },{
+              "name"  : "Option 2",
+              "value" : 55,
+              "type"  : "number"
+            }]
         }
       ]
     });
