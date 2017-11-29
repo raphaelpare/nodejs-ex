@@ -7,11 +7,14 @@ var UserSchema = require("./dal/models/user.js")
 var User = mongoose.model('User', UserSchema);
 var PluginSchema = require("./dal/models/plugin.js")
 var Plugin = mongoose.model('Plugin', PluginSchema);
+var bodyParser = require('body-parser');
     
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
