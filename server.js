@@ -5,6 +5,8 @@ var express = require('express'),
 var mongoose = require('mongoose');
 var UserSchema = require("./dal/models/User.js")
 var User = mongoose.model('User', UserSchema);
+var PluginSchema = require("./dal/models/Plugin.js")
+var Plugin = mongoose.model('Plugin', PluginSchema);
     
 Object.assign=require('object-assign')
 
@@ -112,11 +114,42 @@ app.post('/login', function(req, res, next) {
   var password = req.body.password;
   if(username == "fabien" && password == "dodo"){
 
+    var newPlugin = 
+
     var newUser = new User({
       firstname   : 'Fabien',
       lastname    : 'Joalland',
       money       : 21654,
-      plugins     : {}
+      plugins     : [
+        new Plugin({
+          title           : "Plugin 1",
+          subtitle        : "...",
+          description     : "Super plugin",
+          votes_number    : 42,
+          ratings         : 1.9, 
+          isActivated     : true,
+          isInstalled     : true,
+          hook            : "onPayment"
+        }),new Plugin({
+          title           : "Plugin 2",
+          subtitle        : "...",
+          description     : "Super plugin",
+          votes_number    : 650,
+          ratings         : 4.2, 
+          isActivated     : false,
+          isInstalled     : false,
+          hook            : "onPayment"
+        }),new Plugin({
+          title           : "Plugin 3",
+          subtitle        : "...",
+          description     : "Super plugin",
+          votes_number    : 12,
+          ratings         : 5.0, 
+          isActivated     : false,
+          isInstalled     : true,
+          hook            : "onPayment"
+        })
+      ]
     });
     res.json(newUser)
   }
