@@ -122,6 +122,7 @@ app.post('/login', function(req, res, next) {
       money       : 21654,
       plugins     : [
         {
+          id              : 1,
           title           : "Plugin 1",
           subtitle        : "...",
           description     : "Super plugin",
@@ -136,6 +137,7 @@ app.post('/login', function(req, res, next) {
           }
         },
         {
+          id              : 2,
           title           : "Plugin 2",
           subtitle        : "...",
           description     : "Super plugin",
@@ -150,6 +152,7 @@ app.post('/login', function(req, res, next) {
           }
         },
         {
+          id              : 3,
           title           : "Plugin 3",
           subtitle        : "...",
           description     : "Super plugin",
