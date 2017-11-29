@@ -114,8 +114,6 @@ app.post('/login', function(req, res, next) {
   var password = req.body.password;
   if(username == "fabien" && password == "dodo"){
 
-    var newPlugin = 
-
     var newUser = new User({
       firstname   : 'Fabien',
       lastname    : 'Joalland',
