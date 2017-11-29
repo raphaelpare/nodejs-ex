@@ -106,6 +106,22 @@ app.get('/', function(req, res, next) {
   });
 });
 
+
+app.post('/login', function(req, res, next) {
+  var username = req.body.username;
+  var password = req.body.password;
+  if(username == "fabien" && password == "dodo"){
+
+    var newUser = new User({
+      firstname   : 'Fabien',
+      lastname  : 'Joalland',
+      money   : 21654,
+      plugins   : {}
+    });
+    res.json(newUser)
+  }
+});
+
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
