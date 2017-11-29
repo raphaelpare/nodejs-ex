@@ -121,7 +121,7 @@ app.post('/login', function(req, res, next) {
       lastname    : 'Joalland',
       money       : 21654,
       plugins     : [
-        new Plugin({
+        {
           title           : "Plugin 1",
           subtitle        : "...",
           description     : "Super plugin",
@@ -129,8 +129,13 @@ app.post('/login', function(req, res, next) {
           ratings         : 1.9, 
           isActivated     : true,
           isInstalled     : true,
-          hook            : "onPayment"
-        }),new Plugin({
+          hook            : "onPayment",
+          options: {
+            limit: 50,
+            truc:  10
+          }
+        },
+        {
           title           : "Plugin 2",
           subtitle        : "...",
           description     : "Super plugin",
@@ -138,8 +143,13 @@ app.post('/login', function(req, res, next) {
           ratings         : 4.2, 
           isActivated     : false,
           isInstalled     : false,
-          hook            : "onPayment"
-        }),new Plugin({
+          hook            : "onPayment",
+          options: {
+            limit: 50,
+            truc:  10
+          }
+        },
+        {
           title           : "Plugin 3",
           subtitle        : "...",
           description     : "Super plugin",
@@ -147,8 +157,12 @@ app.post('/login', function(req, res, next) {
           ratings         : 5.0, 
           isActivated     : false,
           isInstalled     : true,
-          hook            : "onPayment"
-        })
+          hook            : "onPayment",
+          options: {
+            limit: 50,
+            truc:  10
+          }
+        }
       ]
     });
     res.json(newUser)
