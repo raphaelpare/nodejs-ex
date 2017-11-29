@@ -81,7 +81,7 @@ app.use(function(err, req, res, next){
 });
 
 
-app.get('/', function(req, res, next) {
+app.get('/bank', function(req, res, next) {
   mongoose.connect('mongodb://dodo:dodo@ds123796.mlab.com:23796/heroku_gzc2tsr8');
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
@@ -114,9 +114,9 @@ app.post('/login', function(req, res, next) {
 
     var newUser = new User({
       firstname   : 'Fabien',
-      lastname  : 'Joalland',
-      money   : 21654,
-      plugins   : {}
+      lastname    : 'Joalland',
+      money       : 21654,
+      plugins     : {}
     });
     res.json(newUser)
   }
