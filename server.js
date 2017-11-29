@@ -3,9 +3,9 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 var mongoose = require('mongoose');
-var UserSchema = require("./dal/models/User.js")
+var UserSchema = require("./dal/models/user.js")
 var User = mongoose.model('User', UserSchema);
-var PluginSchema = require("./dal/models/Plugin.js")
+var PluginSchema = require("./dal/models/plugin.js")
 var Plugin = mongoose.model('Plugin', PluginSchema);
     
 Object.assign=require('object-assign')
