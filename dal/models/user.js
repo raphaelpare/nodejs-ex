@@ -4,6 +4,7 @@ var Schema = mongoose.Schema,
 
 module.exports = new Schema({
     id    			: ObjectId,
+    user_id			: Number,
     firstname     	: String,
     lastname      	: String,
     money      		: Number,

@@ -7,14 +7,18 @@ var UserSchema = require("./dal/models/user.js")
 var User = mongoose.model('User', UserSchema);
 var PluginSchema = require("./dal/models/plugin.js")
 var Plugin = mongoose.model('Plugin', PluginSchema);
+
 var bodyParser = require('body-parser');
-    
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+var routes = require('./routes/index');
+app.use('/', routes);
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -83,91 +87,6 @@ app.get('/pagecount', function (req, res) {
 app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
-});
-
-
-app.get('/bank', function(req, res, next) {
-  mongoose.connect('mongodb://dodo:dodo@ds123796.mlab.com:23796/heroku_gzc2tsr8');
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function() {
-
-    var newUser = new User({
-      firstname   : 'Dodo',
-      lastname  : 'Le Dodo',
-      money   : 21654,
-      plugins   : {}
-    });
-     
-    newUser.save(function (err, response) {
-      if (err){
-        res.json(err);
-      }
-      else{
-        res.json(response);
-      }
-      mongoose.connection.close()
-    });
-  });
-});
-
-
-app.post('/login', function(req, res, next) {
-  var username = req.body.username;
-  var password = req.body.password;
-  if(username == "fabien" && password == "dodo"){
-
-    var newUser = new User({
-      firstname   : 'Fabien',
-      lastname    : 'Joalland',
-      money       : 21654,
-      plugins     : [
-        {
-          "id"              : 1,
-          "title"           : "Treshold",
-          "subtitle"        : "Seuil",
-          "description"     : "Permets de mettre un plafond sur votre carte à une période déterminée",
-          "voteTotal"       : 42,
-          "ratings"         : 1.9, 
-          "isActivated"     : true,
-          "isInstalled"     : true,
-          "hook"            : "onPayment",
-          "options": 
-            [{
-              "name"  : "Option 1",
-              "value" : 55,
-              "type"  : "number"
-            },{
-              "name"  : "Option 2",
-              "value" : 55,
-              "type"  : "number"
-            }]
-        },
-        {
-          "id"              : 2,
-          "title"           : "Watcher",
-          "subtitle"        : "Alerte SMS",
-          "description"     : "Permet de vous envoyer un SMS si vous depassez un certain montant",
-          "voteTotal"       : 650,
-          "ratings"         : 4.2, 
-          "isActivated"     : false,
-          "isInstalled"     : false,
-          "hook"            : "onPayment",
-          "options": 
-            [{
-              "name"  : "Option 1",
-              "value" : 55,
-              "type"  : "number"
-            },{
-              "name"  : "Option 2",
-              "value" : 55,
-              "type"  : "number"
-            }]
-        }
-      ]
-    });
-    res.json(newUser)
-  }
 });
 
 initDb(function(err){
