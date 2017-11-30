@@ -12,6 +12,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+app.use(cors())
+
 var routes = require('./routes/index');
 app.use('/', routes);
 

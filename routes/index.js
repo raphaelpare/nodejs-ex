@@ -72,7 +72,7 @@ app.post('/user/:id/plugins', function(req, res, next){
 
 app.get('/store', function(req, res, next){
   var plugins = {
-    
+
   }
   res.json(user.plugins)
 });
@@ -89,8 +89,6 @@ app.post('/user/:id/plugins', function(req, res, next){
     })
   })
 })
-
-
 
 /*
 app.post('/create_users', function(req, res, next){
