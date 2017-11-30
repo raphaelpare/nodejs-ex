@@ -7,6 +7,8 @@ var UserSchema = require("./dal/models/user.js")
 var User = mongoose.model('User', UserSchema);
 var PluginSchema = require("./dal/models/plugin.js")
 var Plugin = mongoose.model('Plugin', PluginSchema);
+var Modules = require('./modules.js');
+var cors = require('cors');
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json
@@ -181,8 +183,10 @@ app.post('/send', function(req, res, next) {
   var receiver = req.body.email;
   var money = req.body.money;
 
-  var datas = { "emitter": emitter, "receiver": receiver, "money": money};
-  triggerHook("payment", emitter, datas);
+  Modules['slack'](money);
+
+  //var datas = { "emitter": emitter, "receiver": receiver, "money": money};
+  //triggerHook("payment", emitter, datas);
 });
 
 function triggerHook(hook, user, datas) {
@@ -190,6 +194,7 @@ function triggerHook(hook, user, datas) {
   findModulesEnabled(hook, user, function(modules) {
     modules.forEach(function(module) {
       var name = module.title;
+      Modules[name](datas);
     });
   });
 
