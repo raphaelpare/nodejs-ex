@@ -139,12 +139,13 @@ app.get('/store', function(req, res, next){
       },
       {
         "id"              : 3,
-        "title"           : "Slack",
-        "subtitle"        : "Alerte Slack",
-        "description"     : "Recevez un message sur Slack lorsque vous effectuez un virement",
-        "voteTotal"       : 1658,
-        "ratings"         : 3.6, 
-        "hook"            : "onTransfer",
+      "title"           : "slack",
+      "subtitle"        : "Alerte Slack",
+      "description"     : "Recevez un message sur Slack lorsque vous effectuez un virement",
+        "voteTotal"       : 650,
+        "ratings"         : 4.2, 
+        "isActivated"     : true,
+        "hook"            : "onPayment",
         "options": 
           [{
             "name"  : "Option 1",
