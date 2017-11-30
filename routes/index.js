@@ -37,7 +37,7 @@ app.post('/login', function(req, res, next) {
   if(username == "fabien" && password == "1234"){
 
     var newUser = new User({
-      id          : 1, 
+      user_id     : 1, 
       firstname   : 'Fabien',
       lastname    : 'Joalland',
       username    : 'fjoalland',
@@ -49,7 +49,7 @@ app.post('/login', function(req, res, next) {
   else if(username == "antoine" && password == "1234"){
 
     var newUser = new User({
-      id          : 2, 
+      user_id     : 2, 
       firstname   : 'Antoine',
       lastname    : 'Ando',
       username    : 'fjoalland',
