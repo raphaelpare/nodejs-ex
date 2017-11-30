@@ -52,11 +52,26 @@ app.post('/login', function(req, res, next) {
       id          : 2, 
       firstname   : 'Antoine',
       lastname    : 'Ando',
-      username    : 3546111,
+      username    : 'fjoalland',
+      money       : 3546111,
       plugins     : []
     });
     res.json(newUser)
   }
+});
+
+app.get('/user/:id', function(req, res, next){
+  mongoose.connect('mongodb://dodo:dodo@ds123796.mlab.com:23796/heroku_gzc2tsr8');
+  User.findOne({ 'user_id': req.params.id }, function (err, user) {
+    if (err) console.error(err);
+    mongoose.connection.close()
+    res.json({
+      "id"          : user.user_id,
+      "firstname"   : user.firstname,
+      "lastname"    : user.lastname,
+      "money"       : user.money
+    })
+  })
 });
 
 app.get('/user/:id/plugins', function(req, res, next){
