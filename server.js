@@ -170,6 +170,40 @@ app.post('/login', function(req, res, next) {
   }
 });
 
+app.post('/send', function(req, res, next) {
+  var emitter = req.body.id;
+  var receiver = req.body.email;
+  var money = req.body.money;
+
+  var datas = { "emitter": emitter, "receiver": receiver, "money": money};
+  triggerHook("payment", emitter, datas);
+});
+
+function triggerHook(hook, user, datas) {
+
+  findModulesEnabled(hook, user, function(modules) {
+    modules.forEach(function(module) {
+      var name = module.title;
+    });
+  });
+
+}
+
+function findModulesEnabled(hook, user) {
+
+
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    User.find({ 'id': user, 'plugins.hook': hook, 'plugins.isInstalled': true, 
+      'plugins.isActivated': true }, function (err, modules) { 
+      return modules;
+     })
+  } 
+
+}
+
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
