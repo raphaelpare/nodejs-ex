@@ -34,14 +34,25 @@ var app = express.Router();
 app.post('/login', function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
-  if(username == "fabien" && password == "dodo"){
+  if(username == "fabien" && password == "1234"){
 
     var newUser = new User({
       id          : 1, 
       firstname   : 'Fabien',
       lastname    : 'Joalland',
-      username    : 'jfabien',
+      username    : 'fjoalland',
       money       : 21654,
+      plugins     : []
+    });
+    res.json(newUser)
+  }
+  else if(username == "antoine" && password == "1234"){
+
+    var newUser = new User({
+      id          : 2, 
+      firstname   : 'Antoine',
+      lastname    : 'Ando',
+      username    : 3546111,
       plugins     : []
     });
     res.json(newUser)
@@ -71,10 +82,82 @@ app.post('/user/:id/plugins', function(req, res, next){
 })
 
 app.get('/store', function(req, res, next){
-  var plugins = {
-
-  }
-  res.json(user.plugins)
+  var plugins =
+    [
+      {
+        "id"              : 1,
+        "title"           : "Treshold",
+        "subtitle"        : "Seuil",
+        "description"     : "Permets de mettre un plafond sur votre carte à une période déterminée",
+        "voteTotal"       : 42,
+        "ratings"         : 1.9, 
+        "hook"            : "onPayment",
+        "options": 
+          [{
+            "name"  : "Option 1",
+            "value" : 55,
+            "type"  : "number"
+          },{
+            "name"  : "Option 2",
+            "value" : 55,
+            "type"  : "number"
+          }]
+      },
+      {
+        "id"              : 2,
+        "title"           : "Watcher",
+        "subtitle"        : "Alerte SMS",
+        "description"     : "Permet de vous envoyer un SMS si vous depassez un certain montant",
+        "voteTotal"       : 650,
+        "ratings"         : 4.2, 
+        "hook"            : "onPayment",
+        "options": 
+          [{
+            "name"  : "Option 1",
+            "value" : 55,
+            "type"  : "number"
+          },{
+            "name"  : "Option 2",
+            "value" : 55,
+            "type"  : "number"
+          }]
+      },
+      {
+        "id"              : 3,
+        "title"           : "Slack",
+        "subtitle"        : "Alerte Slack",
+        "description"     : "Recevez un message sur Slack lorsque vous effectuez un virement",
+        "voteTotal"       : 1658,
+        "ratings"         : 3.6, 
+        "hook"            : "onTransfer",
+        "options": 
+          [{
+            "name"  : "Option 1",
+            "value" : 55,
+            "type"  : "number"
+          },{
+            "name"  : "Option 2",
+            "value" : 55,
+            "type"  : "number"
+          }]
+      },
+      {
+        "id"              : 4,
+        "title"           : "Plugin 4",
+        "subtitle"        : "Plugin 4",
+        "description"     : "wew",
+        "voteTotal"       : 10,
+        "ratings"         : 1.2, 
+        "hook"            : "onPayment",
+        "options": 
+          [{
+            "name"  : "Option 1",
+            "value" : 55,
+            "type"  : "number"
+          }]
+      }
+    ]
+  res.json(plugins)
 });
 
 app.post('/user/:id/plugins', function(req, res, next){
