@@ -1,7 +1,5 @@
 var request = require('request');
 
-
-
 var slack = function(args) {
     request.post(
         'https://hooks.slack.com/services/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',
