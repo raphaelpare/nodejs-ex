@@ -183,35 +183,56 @@ app.post('/send', function(req, res, next) {
   var receiver = req.body.email;
   var money = req.body.money;
 
-  Modules['slack'](money);
+  var datas = { "emitter": emitter, "receiver": receiver, "money": money};
+  triggerHook("onPayment", emitter, datas);
 
-  //var datas = { "emitter": emitter, "receiver": receiver, "money": money};
-  //triggerHook("payment", emitter, datas);
+  User.findOneAndUpdate({ 'user_id': emitter}, {$inc:{'money': -money}}, {new: false}, function(err,doc) {
+    if (err) console.error(err);
+    console.log("decrement");
+  });
+
+  User.findOneAndUpdate({ 'lastname': receiver}, {$inc:{'money': money}}, {new: false}, function(err,doc) {
+    if (err) console.error(err);
+    console.log("increment");
+    
+    mongoose.connection.close();
+    
+    res.json('ok');
+  });
+  
 });
 
 function triggerHook(hook, user, datas) {
-
   findModulesEnabled(hook, user, function(modules) {
     modules.forEach(function(module) {
-      var name = module.title;
-      Modules[name](datas);
+      if(module.hook == hook && module.isActivated == true) {
+        try {
+          var name = module.title;
+          console.log("Trigger module : " + name);
+          Modules[name](datas);
+        } catch(ex) {
+          console.log(ex);
+        }
+      }
     });
   });
 
 }
 
-function findModulesEnabled(hook, user) {
+function findModulesEnabled(hook, user, callback) {
 
+  console.log("kek2 " + user);
+  mongoose.connect('mongodb://dodo:dodo@ds123796.mlab.com:23796/heroku_gzc2tsr8');
+  User.findOne({ 'user_id': user, 'plugins.hook': hook, 'plugins.isActivated': true }, function (err, user) { 
+      if (err) console.error(err);
+      
+      if(user != null) {
+        callback(user.plugins);        
+      } else {
+        return [];
+      }
 
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    User.find({ 'id': user, 'plugins.hook': hook, 'plugins.isInstalled': true, 
-      'plugins.isActivated': true }, function (err, modules) { 
-      return modules;
-     })
-  } 
+    });
 
 }
 
