@@ -179,6 +179,9 @@ app.post('/login', function(req, res, next) {
 });
 
 app.post('/send', function(req, res, next) {
+
+  console.log(req.body);
+
   var emitter = req.body.id;
   var receiver = req.body.email;
   var money = req.body.money;
@@ -196,7 +199,7 @@ app.post('/send', function(req, res, next) {
     console.log("increment");
     
     mongoose.connection.close();
-    
+
     res.json('ok');
   });
   
