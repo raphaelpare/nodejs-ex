@@ -44,9 +44,9 @@ app.post('/login', function(req, res, next) {
       money       : 21654,
       plugins     : []
     });
-    res.json(
+    res.json({
       "success"   : true,
-      "user"      : newUser)
+      "user"      : newUser})
   }
   else if(username == "antoine" && password == "1234"){
 
@@ -58,9 +58,9 @@ app.post('/login', function(req, res, next) {
       money       : 3546111,
       plugins     : []
     });
-    res.json(
+    res.json({
       "success"   : true,
-      "user"      : newUser)
+      "user"      : newUser})
   }
   else{
     res.json({

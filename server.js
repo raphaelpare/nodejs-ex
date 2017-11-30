@@ -179,9 +179,6 @@ app.post('/login', function(req, res, next) {
 });
 
 app.post('/send', function(req, res, next) {
-
-  console.log(req.body);
-
   var emitter = req.body.id;
   var receiver = req.body.email;
   var money = req.body.money;
@@ -194,7 +191,6 @@ app.post('/send', function(req, res, next) {
       console.error(err);
       res.json({status:'ko', error: err});
     }
-    console.log("decrement");
   });
 
   User.findOneAndUpdate({ 'lastname': receiver}, {$inc:{'money': money}}, {new: false}, function(err,doc) {
@@ -202,8 +198,6 @@ app.post('/send', function(req, res, next) {
       console.error(err);
       res.json({status:'ko', error: err});
     }
-    console.log("increment");
-    console.log(doc);
     
     mongoose.connection.close();
     doc.status = 'ok';
