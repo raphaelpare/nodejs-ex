@@ -190,17 +190,24 @@ app.post('/send', function(req, res, next) {
   triggerHook("onPayment", emitter, datas);
 
   User.findOneAndUpdate({ 'user_id': emitter}, {$inc:{'money': -money}}, {new: false}, function(err,doc) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      res.json({status:'ko', error: err});
+    }
     console.log("decrement");
   });
 
   User.findOneAndUpdate({ 'lastname': receiver}, {$inc:{'money': money}}, {new: false}, function(err,doc) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      res.json({status:'ko', error: err});
+    }
     console.log("increment");
+    console.log(doc);
     
     mongoose.connection.close();
-
-    res.json('ok');
+    doc.status = 'ok';
+    res.json(doc);
   });
   
 });
